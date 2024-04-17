@@ -1,4 +1,5 @@
 {
     "HOST": "localhost",
-    "PORT": 5050
+    "PORT": 5050,
+    "POWER_DATA_FOLDER": "/nfs/obelix/users1/khainguyen/power_monitoring"
 }

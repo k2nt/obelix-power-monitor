@@ -10,7 +10,10 @@ from .api.router import router
 
 
 def build():
+    # loggers
     _ = logger_store.new_logger(name='pm', level=LogLevel.DEBUG)
+    
+    # initialize dependency injection
     di.build(["src.main"])
     
 
