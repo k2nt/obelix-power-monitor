@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "obelix-power-monitor"
+version = "0.1.0"
+description = "Monitor power consumption across Obelix nodes"
+authors = ["khainguyen <khainguyen@umass.edu>"]
+readme = "README.md"
+packages = [
+    { include = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.scripts]
+power-monitor = "src.main:start"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
