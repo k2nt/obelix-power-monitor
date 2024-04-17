@@ -11,6 +11,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.10"
 uvicorn = "^0.29.0"
+colorama = "^0.4.6"
 
 [tool.poetry.scripts]
 power-monitor = "src.main:start_app"

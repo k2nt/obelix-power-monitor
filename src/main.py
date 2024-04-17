@@ -4,6 +4,7 @@ from dependency_injector.wiring import Provide, inject
 
 from src.core import di
 from src.api.router import router
+from src.domain.logging import LogLevel
 
 
 def asgi_app_factory() -> FastAPI:
@@ -22,8 +23,7 @@ def start(
         app=asgi_app_factory(),
         host=config_dict["HOST"],
         port=config_dict["PORT"],
-        # log_config=config_dict['logging'],
-        # log_level=logging.DEBUG,
+        log_level=LogLevel.DEBUG,
         )
     
     
