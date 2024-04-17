@@ -13,7 +13,7 @@ python = "^3.10"
 uvicorn = "^0.29.0"
 
 [tool.poetry.scripts]
-power-monitor = "src.main:start"
+power-monitor = "src.main:start_app"
 
 [build-system]
 requires = ["poetry-core"]
