@@ -2,10 +2,17 @@ import uvicorn
 from fastapi import FastAPI
 from dependency_injector.wiring import Provide, inject
 
-from src.core import di
-from src.api.router import router
-from src.domain.logging import LogLevel
+from .infra import di
+from .infra.logging import logger_store
+from .infra.logging import LogLevel
+from .infra.logging.formatter import DEFAULT_LOGGING_CONFIG
+from .api.router import router
 
+
+def build():
+    _ = logger_store.new_logger(name='pm', level=LogLevel.DEBUG)
+    di.build(["src.main"])
+    
 
 def asgi_app_factory() -> FastAPI:
     """Create FastAPI application."""
@@ -16,20 +23,22 @@ def asgi_app_factory() -> FastAPI:
 
 @inject
 def start(
+        app: FastAPI,
         config_dict = Provide[di.App.config_dict]
 ):
     """Start FastAPI application."""    
     uvicorn.run(
-        app=asgi_app_factory(),
+        app=app,
         host=config_dict["HOST"],
         port=config_dict["PORT"],
+        log_config=DEFAULT_LOGGING_CONFIG,
         log_level=LogLevel.DEBUG,
         )
     
     
 def start_app():
-    di.build()
-    start()
+    build()
+    start(asgi_app_factory())
 
 
 if __name__ == '__main__':
