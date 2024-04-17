@@ -1,6 +1,7 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from fastapi import Response
+from fastapi.responses import JSONResponse
 
 from src.lib.http import HTTPStatus
 from src.schema.response import ResponseBase
@@ -9,7 +10,7 @@ from src.schema.response import ResponseBase
 def ok(
         message: str = 'success',
         data: Dict[str, Any] = {},
-) -> Response:
+) -> JSONResponse:
     """OK response builder.
     
     Args:
@@ -20,7 +21,7 @@ def ok(
         fastapi.Response: Response object
     """
     resp_dict = ResponseBase(message=message, data=data).model_dump()
-    return Response(
+    return JSONResponse(
         content=str(resp_dict),
         status_code=HTTPStatus.OK,
         )
