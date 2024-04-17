@@ -1,25 +1,24 @@
 from dependency_injector import providers, containers
 
 
-class AppDI(containers.DeclarativeContainer):
+class App(containers.DeclarativeContainer):
     """Application dependency injection container."""
     # Core
 
-    config_dict = providers.Configuration().from_env('.env')
+    config_dict = providers.Configuration(json_files=["cfg.json"])
     
     
-def build_di():
+def build():
     """Build dependency injection."""
-    # Dependency injection
+    # dependency injection
 
-    app_di = AppDI()
-    app_di.config_dict.from_yaml(".env")
+    app_di = App()
     app_di.init_resources()
 
-    # only inject into Service layer
-    # this is to obey Clean Architecture, where Views are state-agnostic.
+    # only inject into service layer
+    
     app_di.wire(
         modules=[
-            __name__
+            "src.main",
             ]
         )    
