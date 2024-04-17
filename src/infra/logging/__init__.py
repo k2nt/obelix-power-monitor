@@ -1,4 +1,4 @@
-from .types import LogLevel
+from .types import Level
 from . import logger_store
 from . import formatter
 from . import types

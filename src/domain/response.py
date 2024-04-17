@@ -3,8 +3,8 @@ from typing import Any, Dict
 from fastapi import Response
 from fastapi.responses import JSONResponse
 
-from src.lib.http import HTTPStatus
-from src.schema.response import ResponseBase
+from src.lib import http as http_lib
+from src.model import response as response_model
 
 
 def ok(
@@ -20,12 +20,12 @@ def ok(
     Returns:
         fastapi.Response: Response object
     """
-    resp_dict = ResponseBase(message=message, data=data).model_dump()
+    resp_dict = response_model.Base(message=message, data=data).model_dump()
     return JSONResponse(
         content=str(resp_dict),
-        status_code=HTTPStatus.OK,
+        status_code=http_lib.Status.OK,
         )
 
 
 def ok_empty() -> Response:
-    return Response(status_code=HTTPStatus.OK)
+    return Response(status_code=http_lib.Status.OK)

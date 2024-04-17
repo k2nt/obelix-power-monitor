@@ -4,7 +4,7 @@ import logging
 import logging.config
 
 from . import formatter
-from .types import LogLevel, Logger
+from .types import Level, Logger
 
 
 _LOGGERS: Dict[str, Logger] = {}
@@ -29,7 +29,7 @@ def get_logger(name: str = 'default'):
 
 def new_logger(
         name: str = 'default',
-        level: LogLevel = LogLevel.INFO,
+        level: Level = Level.INFO,
         fmt: formatter.Formatter = formatter.Default()
 ) -> Logger:    
     """Create a new logger

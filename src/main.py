@@ -3,15 +3,15 @@ from fastapi import FastAPI
 from dependency_injector.wiring import Provide, inject
 
 from .infra import di
+from .infra import logging
 from .infra.logging import logger_store
-from .infra.logging import LogLevel
 from .infra.logging.formatter import DEFAULT_LOGGING_CONFIG
 from .api.router import router
 
 
 def build():
     # loggers
-    _ = logger_store.new_logger(name='pm', level=LogLevel.DEBUG)
+    _ = logger_store.new_logger(name='pm', level=logging.Level.DEBUG)
     
     # initialize dependency injection
     di.build(["src.main"])
@@ -35,7 +35,7 @@ def start(
         host=config_dict["HOST"],
         port=config_dict["PORT"],
         log_config=DEFAULT_LOGGING_CONFIG,
-        log_level=LogLevel.DEBUG,
+        log_level=logging.Level.DEBUG,
         )
     
     

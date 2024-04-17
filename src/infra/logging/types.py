@@ -4,7 +4,7 @@ import logging
 
 
 @dataclass(init=True, frozen=True)
-class LogLevel:
+class Level:
     DEBUG = logging.DEBUG
     INFO = logging.INFO
     WARNING = logging.WARNING
