@@ -1,1 +1,0 @@
-from .obelix import is_node_name

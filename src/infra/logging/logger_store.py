@@ -10,7 +10,7 @@ from .types import Level, Logger
 _LOGGERS: Dict[str, Logger] = {}
 
 
-def get_logger(name: str = 'default'):
+def get(name: str = 'default'):
     """Get an existing logger
     
     Args:
@@ -23,13 +23,13 @@ def get_logger(name: str = 'default'):
         src.infra.logging.types.Logger: Logger
     """
     if name not in _LOGGERS.keys():
-        raise KeyError(f"logger {name} not found")
+        raise KeyError(f"logger '{name}' not found")
     return _LOGGERS[name]
 
 
-def new_logger(
+def new(
         name: str = 'default',
-        level: Level = Level.INFO,
+        level: Level = Level.DEBUG,
         fmt: formatter.Formatter = formatter.Default()
 ) -> Logger:    
     """Create a new logger
@@ -46,7 +46,7 @@ def new_logger(
         src.infra.logging.types.Logger: Logger
     """
     if name in _LOGGERS.keys():
-        raise KeyError(f"logger {name} already exists, use 'get_logger' instead")
+        raise KeyError(f"logger '{name}' already exists, use 'get_logger' instead")
     
     logger = logging.getLogger(name)
     logger.setLevel(level)

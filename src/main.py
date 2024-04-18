@@ -11,10 +11,13 @@ from .api.router import router
 
 def build():
     # loggers
-    _ = logger_store.new_logger(name='pm', level=logging.Level.DEBUG)
+    # _ = logger_store.new(name='pm', level=logging.Level.DEBUG)
     
     # initialize dependency injection
-    di.build(["src.main"])
+    di.build([
+        "src.main",
+        "src.api.v1.monitor"
+        ])
     
 
 def asgi_app_factory() -> FastAPI:
@@ -27,13 +30,13 @@ def asgi_app_factory() -> FastAPI:
 @inject
 def start(
         app: FastAPI,
-        config_dict = Provide[di.App.config_dict]
+        config = Provide[di.App.config]
 ):
     """Start FastAPI application."""    
     uvicorn.run(
         app=app,
-        host=config_dict["HOST"],
-        port=config_dict["PORT"],
+        host=config["HOST"],
+        port=config["PORT"],
         log_config=DEFAULT_LOGGING_CONFIG,
         log_level=logging.Level.DEBUG,
         )

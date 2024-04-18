@@ -5,4 +5,4 @@ from . import types
 
 
 # Create the default logger
-_ = logger_store.new_logger()
+_ = logger_store.new()
