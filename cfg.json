@@ -1,7 +1,6 @@
 {
-    "HOST": "localhost",
+    "HOST": "0.0.0.0",
     "PORT": 5050,
-    "POWER_DATA_FOLDER": "/nfs/obelix/users1/khainguyen/power_monitoring",
     "POWER_METER_SAMPLE_PER_SECOND": 1,
     "POWER_METER_FOLDER": "/nfs/obelix/users1/khainguyen/power_data"
 }
