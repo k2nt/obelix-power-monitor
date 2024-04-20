@@ -17,7 +17,7 @@ router = APIRouter(prefix='/monitor')
 async def get_energy_consumption(
         node_name: Annotated[str, Path(title="Obelix node name")],
         t_sec: Annotated[int, Query(alias="tsec")] = 15,
-        s: repo.PowerMeter = Depends(Provide[di.App.power_meter_repo])
+        s: service.PowerMonitor = Depends(Provide[di.App.power_meter_repo])
 ):    
     eu = s.sample_energy_watts(node_name, t_sec)
     return response.ok(data={'eu': eu})
