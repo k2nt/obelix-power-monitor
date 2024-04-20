@@ -4,7 +4,7 @@ from fastapi import Response
 from fastapi.responses import JSONResponse
 
 from src.lib import http as http_lib
-from src.model import response as response_model
+from src.entities import response as response_model
 
 
 def ok(

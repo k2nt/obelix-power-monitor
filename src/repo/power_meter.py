@@ -7,19 +7,18 @@ import pandas as pd
 
 
 class PowerMeter:
-    def __init__(self, sample_per_seconds: float, data_folder: Path | str):
-        data_folder = Path(data_folder)
-        
-        self.sample_per_seconds: float = sample_per_seconds
+    def __init__(self, sample_per_second: float, data_folder: Path | str):
+        self.data_folder = Path(data_folder)
+        self.sample_per_second: float = sample_per_second
         
         # get nodes being monitored for power
-        file_names = os.listdir(data_folder)
+        file_names = os.listdir(self.data_folder)
     
         # open persistent filestreams to each node's power data
         self._fs: Dict[str, Any] = dict()
         for n in file_names:
             node = Path(n).stem
-            self._fs[node] = open(data_folder / n)
+            self._fs[node] = open(self.data_folder / n)
     
     def is_measuring_node(self, node_name: str) -> bool:
         return node_name in list(self._fs.keys())
@@ -30,5 +29,5 @@ class PowerMeter:
         
         df = pd.read_csv(self._fs[node_name], on_bad_lines='skip')
         t = t_sec * self.sample_per_second
-        energy_watts_samples = df.tail(t)[:, -1]
+        energy_watts_samples = df.tail(t).iloc[:, -1]
         return energy_watts_samples.sum()
